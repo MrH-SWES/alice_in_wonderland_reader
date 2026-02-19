@@ -229,7 +229,10 @@
         </div>
         <div class="header-row">
             <span style="font-family:'Fredoka',sans-serif; font-weight:600; font-size:1.1rem;">Chapters</span>
-            <button class="icon-btn" id="theme-toggle-menu" title="Toggle dark mode">&#x1F319;</button>
+            <div style="display:flex;gap:8px;">
+                <button class="icon-btn" id="reset-progress" title="Reset all progress" style="font-size:0.9rem;">&#x21BA;</button>
+                <button class="icon-btn" id="theme-toggle-menu" title="Toggle dark mode">&#x1F319;</button>
+            </div>
         </div>
         <div class="chapter-grid" id="chapter-grid"></div>
     </div>
@@ -580,6 +583,14 @@ document.querySelectorAll('.speed-btn').forEach(btn => {
 
 document.getElementById('prev-ch').onclick = () => { if (currentChapterIdx > 0) openChapter(currentChapterIdx - 1); };
 document.getElementById('next-ch').onclick = () => { if (currentChapterIdx < BOOK_DATA.length - 1) openChapter(currentChapterIdx + 1); };
+
+// Reset progress
+document.getElementById('reset-progress').onclick = () => {
+    if (confirm('Reset all reading progress? This will clear your place in every chapter.')) {
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+        renderChapterGrid();
+    }
+};
 
 // ============================================================
 // INIT
